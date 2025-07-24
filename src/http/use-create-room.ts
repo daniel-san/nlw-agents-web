@@ -1,9 +1,9 @@
-import { useMutation, useQueryClient } from '@tanstack/react-query'
-import type { CreateRoomRequest } from './types/create-room-request.ts'
-import type { CreateRoomResponse } from './types/create-room-response.ts'
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+import type { CreateRoomRequest } from './types/create-room-request.ts';
+import type { CreateRoomResponse } from './types/create-room-response.ts';
 
 export function useCreateRoom() {
-  const queryClient = useQueryClient()
+  const queryClient = useQueryClient();
 
   return useMutation({
     mutationFn: async (data: CreateRoomRequest) => {
@@ -13,15 +13,15 @@ export function useCreateRoom() {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify(data),
-      })
+      });
 
-      const result: CreateRoomResponse = await response.json()
+      const result: CreateRoomResponse = await response.json();
 
-      return result
+      return result;
     },
 
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['get-rooms'] })
+      queryClient.invalidateQueries({ queryKey: ['get-rooms'] });
     },
-  })
+  });
 }
